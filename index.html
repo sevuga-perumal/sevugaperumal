@@ -1,181 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sevugaperumal K | Cybersecurity Professional</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sevugaperumal K — Cybersecurity Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#0b0f19;color:#fff;line-height:1.6;}
-html{scroll-behavior:smooth;}
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --surface: #111820;
+    --border: rgba(0,255,170,0.12);
+    --accent: #00ffaa;
+    --accent2: #00c8ff;
+    --text: #e2eaf4;
+    --muted: #6a7f96;
+    --mono: 'Share Tech Mono', monospace;
+    --display: 'Syne', sans-serif;
+    --body: 'DM Sans', sans-serif;
+  }
 
-nav{
-position:fixed;width:100%;top:0;
-background:#111827;padding:15px 8%;
-display:flex;justify-content:space-between;z-index:1000;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
 
-nav a{color:#fff;text-decoration:none;margin-left:20px;font-size:14px;}
-nav a:hover{color:#00ffc3;}
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,170,0.013) 2px, rgba(0,255,170,0.013) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
 
-header{
-height:100vh;display:flex;flex-direction:column;
-justify-content:center;align-items:center;text-align:center;
-padding:0 20px;
-background:linear-gradient(120deg,#0b0f19,#111827);
-}
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,170,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,170,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-header h1{font-size:48px;color:#00ffc3;}
-header h2{font-weight:400;margin:10px 0;}
-section{padding:80px 8%;}
-h3{color:#00ffc3;margin-bottom:20px;font-size:28px;}
+  .glow-blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(130px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-blob-1 { width: 600px; height: 600px; background: rgba(0,255,170,0.15); top: -200px; right: -100px; }
+  .glow-blob-2 { width: 400px; height: 400px; background: rgba(0,200,255,0.12); bottom: 100px; left: -100px; }
 
-.card{
-background:#111827;padding:25px;border-radius:12px;
-margin-bottom:20px;transition:0.3s;
-}
-.card:hover{transform:translateY(-5px);}
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 60px;
+    background: rgba(8,12,16,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
 
-.skills span{
-display:inline-block;background:#00ffc3;color:#000;
-padding:8px 12px;border-radius:20px;margin:6px;font-size:13px;
-}
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
 
-footer{text-align:center;padding:20px;background:#111827;margin-top:40px;}
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
 
-@media(max-width:768px){
-header h1{font-size:32px;}
-}
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 110; }
+  .hamburger span { width: 24px; height: 2px; background: var(--accent); transition: all 0.3s; display: block; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,12,16,0.97);
+    z-index: 105;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--accent); }
+
+  .wrapper { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 130px 60px 100px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    background: rgba(0,255,170,0.07);
+    border: 1px solid rgba(0,255,170,0.2);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.1s forwards;
+    letter-spacing: 0.05em;
+  }
+  .status-pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.25s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3.2rem, 9vw, 8rem);
+    line-height: 0.93;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s forwards;
+  }
+
+  .hero-name .outline {
+    -webkit-text-stroke: 2px var(--accent);
+    color: transparent;
+  }
+
+  .hero-role {
+    font-family: var(--display);
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 28px;
+    min-height: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.55s forwards;
+  }
+
+  .hero-about {
+    max-width: 620px;
+    font-size: 1rem;
+    color: #7a94ae;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.7s forwards;
+    line-height: 1.85;
+  }
+
+  .hero-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.85s forwards;
+  }
+
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.25s;
+    letter-spacing: 0.02em;
+  }
+  .chip:hover { border-color: rgba(0,255,170,0.35); color: var(--accent); }
+  .chip .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.7s 1.1s forwards;
+  }
+  .scroll-line {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  .scroll-label { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* SECTIONS */
+  .section-inner { max-width: 1100px; margin: 0 auto; padding: 100px 60px; }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .section-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 60px;
+    line-height: 1.1;
+  }
+
+  /* EXPERIENCE TIMELINE */
+  #experience { background: var(--bg); }
+
+  .timeline { position: relative; padding-left: 0; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0 40px;
+    margin-bottom: 64px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .tl-item.visible { opacity: 1; transform: translateY(0); }
+
+  .tl-left {
+    text-align: right;
+    padding-top: 4px;
+    border-right: 1px solid var(--border);
+    padding-right: 32px;
+    position: relative;
+  }
+
+  .tl-left::after {
+    content: '';
+    position: absolute;
+    right: -5px; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .tl-company {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .tl-type {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tl-location {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .tl-right { padding-left: 0; }
+
+  .role-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    margin-bottom: 10px;
+    transition: border-color 0.25s;
+  }
+  .role-row:hover { border-color: rgba(0,255,170,0.3); }
+  .role-row:last-child { margin-bottom: 0; }
+  .role-name { font-family: var(--display); font-weight: 600; font-size: 0.95rem; }
+  .role-dur { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); text-align: right; flex-shrink: 0; line-height: 1.6; }
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--bg2); }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s, border-color 0.3s;
+  }
+  .cert-card.visible { opacity: 1; transform: translateY(0); }
+  .cert-card:hover { border-color: rgba(0,200,255,0.35); }
+
+  .cert-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+  .cert-card:hover::before { transform: scaleX(1); }
+
+  .cert-num {
+    font-family: var(--mono);
+    font-size: 1.8rem;
+    color: rgba(0,255,170,0.1);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .cert-name { font-family: var(--display); font-weight: 600; font-size: 0.9rem; line-height: 1.45; margin-bottom: 8px; }
+  .cert-issuer { font-family: var(--mono); font-size: 0.68rem; color: var(--accent2); letter-spacing: 0.06em; }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .skill-pill {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    color: var(--muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 9px 16px;
+    border-radius: 4px;
+    cursor: default;
+    transition: all 0.22s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-pill::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.25s;
+  }
+  .skill-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+    background: rgba(0,255,170,0.05);
+  }
+  .skill-pill:hover::before { transform: scaleY(1); }
+
+  /* EDUCATION */
+  #education { background: var(--bg2); }
+
+  .edu-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 40px 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .edu-block:hover { border-color: rgba(0,255,170,0.3); }
+  .edu-block::after {
+    content: 'B.E.';
+    position: absolute;
+    right: 36px; bottom: -20px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 7rem;
+    color: rgba(0,255,170,0.03);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .edu-degree { font-family: var(--display); font-weight: 700; font-size: 1.6rem; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .edu-field { color: var(--muted); font-size: 0.95rem; margin-bottom: 8px; }
+  .edu-year { font-family: var(--mono); font-size: 0.78rem; color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 36px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-name { font-family: var(--display); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
+  .footer-sub { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+
+  /* CURSOR GLOW */
+  #cursorGlow {
+    position: fixed;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,170,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    will-change: left, top;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,255,170,0.6); }
+    50% { box-shadow: 0 0 0 6px rgba(0,255,170,0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .typed-cursor { animation: blink 1s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    #hero { padding: 100px 24px 80px; }
+    .section-inner { padding: 70px 24px; }
+    footer { padding: 28px 24px; }
+    .tl-item { grid-template-columns: 1fr; gap: 16px; }
+    .tl-left { text-align: left; border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+    .tl-left::after { right: auto; left: auto; display: none; }
+    .edu-block { flex-direction: column; align-items: flex-start; }
+    .edu-block::after { display: none; }
+    .hero-scroll { left: 24px; }
+  }
+  @media (max-width: 550px) {
+    .hero-name { font-size: 2.8rem; }
+    .cert-grid { grid-template-columns: 1fr; }
+    .role-row { flex-direction: column; gap: 4px; }
+    .role-dur { text-align: left; }
+  }
 </style>
 </head>
-
 <body>
 
-<nav>
-<div><b>Sevugaperumal K</b></div>
-<div>
-<a href="#about">About</a>
-<a href="#experience">Experience</a>
-<a href="#skills">Skills</a>
-<a href="#certifications">Certifications</a>
-<a href="#education">Education</a>
-<a href="#contact">Contact</a>
-</div>
+<div class="grid-bg"></div>
+<div class="glow-blob glow-blob-1"></div>
+<div class="glow-blob glow-blob-2"></div>
+<div id="cursorGlow"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">&gt;_ sevuga.sec</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
-<header>
-<h1>Sevugaperumal K</h1>
-<h2>Cybersecurity Specialist | SOC | DFIR | Threat Intelligence</h2>
-<p>📍 Chennai, India</p>
-</header>
-
-<section id="about">
-<h3>About Me</h3>
-<div class="card">
-<p>
-Cybersecurity professional with 5+ years of experience in IT and security operations.
-OffSec OSDA certified with hands-on expertise in SOC operations, threat detection,
-incident response, cyber forensics, and cloud security (OCI).
-<br><br>
-Led forensic investigations, identified attack vectors, and supported remediation.
-Certified in Red Team leadership, adversary simulation, and threat exposure management.
-Passionate about strengthening security posture and continuous learning.
-</p>
-</div>
-</section>
-
-<section id="experience">
-<h3>Experience</h3>
-
-<div class="card">
-<h4>Briskinfosec Technology and Consulting Pvt Ltd</h4>
-<p>Cybersecurity Specialist (Nov 2025 – Present)</p>
-<p>Security Analyst (Nov 2024 – Nov 2025)</p>
-<p>Sr IT Support Executive (Nov 2023 – Nov 2024)</p>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#experience" class="m-link">Experience</a>
+  <a href="#certifications" class="m-link">Certifications</a>
+  <a href="#skills" class="m-link">Skills</a>
+  <a href="#education" class="m-link">Education</a>
 </div>
 
-<div class="card">
-<h4>Experis India</h4>
-<p>Network Engineer (Aug 2022 – Oct 2023)</p>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="status-badge">
+      <span class="status-pulse"></span>
+      Open to SOC · DFIR · Cloud Security Roles
+    </div>
+    <div class="hero-tag">// Madurai, Tamil Nadu, India — 5+ Years Experience</div>
+    <h1 class="hero-name">
+      Sevuga<br /><span class="outline">perumal K</span>
+    </h1>
+    <p class="hero-role"><span id="typed"></span><span class="typed-cursor">|</span></p>
+    <p class="hero-about">
+      Cybersecurity professional with 5+ years across SOC operations, threat detection, incident response, and digital forensics. OffSec OSDA certified. Led forensic investigations and identified attack vectors. OCI Architect Associate — securing cloud at scale.
+    </p>
+    <div class="hero-chips">
+      <span class="chip"><span class="dot"></span>sevugaperumalk02@gmail.com</span>
+      <span class="chip"><span class="dot"></span>+91 8220438669</span>
+      <span class="chip"><span class="dot"></span>Madurai, Tamil Nadu, IN - 625101</span>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-label">scroll</span>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="section-label">02 // Career History</div>
+      <h2 class="section-title">Work Experience</h2>
+
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-company">Briskinfosec Technology &amp; Consulting</div>
+            <div class="tl-type">Full-Time</div>
+            <div class="tl-location">Chennai, TN · 2 yrs 4 mos</div>
+          </div>
+          <div class="tl-right">
+            <div class="role-row">
+              <div class="role-name">Cybersecurity Specialist</div>
+              <div class="role-dur">Nov 2025 – Present<br/>4 Months</div>
+            </div>
+            <div class="role-row">
+              <div class="role-name">Security Analyst</div>
+              <div class="role-dur">Nov 2024 – Nov 2025<br/>1 Yr 1 Mo</div>
+            </div>
+            <div class="role-row">
+              <div class="role-name">Sr. IT Support Executive</div>
+              <div class="role-dur">Nov 2023 – Nov 2024<br/>1 Yr 1 Mo</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-company">Experis India</div>
+            <div class="tl-type">Full-Time</div>
+            <div class="tl-location">Chennai, TN · 1 yr 3 mos</div>
+          </div>
+          <div class="tl-right">
+            <div class="role-row">
+              <div class="role-name">Network Engineer</div>
+              <div class="role-dur">Aug 2022 – Oct 2023<br/>1 Yr 3 Mos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-company">Fourth Dimension Technologies</div>
+            <div class="tl-type">Internship</div>
+            <div class="tl-location">2 Months</div>
+          </div>
+          <div class="tl-right">
+            <div class="role-row">
+              <div class="role-name">IT Support Intern</div>
+              <div class="role-dur">Jun 2022 – Jul 2022<br/>2 Months</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-left">
+            <div class="tl-company">Conneqt Business Solutions</div>
+            <div class="tl-type">Full-Time</div>
+            <div class="tl-location">9 Months</div>
+          </div>
+          <div class="tl-right">
+            <div class="role-row">
+              <div class="role-name">Customer Support Associate</div>
+              <div class="role-dur">Sep 2021 – May 2022<br/>9 Months</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-inner">
+      <div class="section-label">03 // Credentials</div>
+      <h2 class="section-title">Certifications</h2>
+      <div class="cert-grid">
+        <div class="cert-card"><div class="cert-num">01</div><div class="cert-name">Offensive Security Defence Analyst (OSDA)</div><div class="cert-issuer">OffSec</div></div>
+        <div class="cert-card"><div class="cert-num">02</div><div class="cert-name">OCI Architect Associate</div><div class="cert-issuer">Oracle</div></div>
+        <div class="cert-card"><div class="cert-num">03</div><div class="cert-name">Seceon Certified Professional</div><div class="cert-issuer">Seceon</div></div>
+        <div class="cert-card"><div class="cert-num">04</div><div class="cert-name">Certified Red Team Operations Management (CRTOM)</div><div class="cert-issuer">Red Team Leaders</div></div>
+        <div class="cert-card"><div class="cert-num">05</div><div class="cert-name">Certified Cybersecurity Educator Professional (CCEP)</div><div class="cert-issuer">Red Team Leaders</div></div>
+        <div class="cert-card"><div class="cert-num">06</div><div class="cert-name">Certified Threat Intelligence &amp; Governance Analyst (CTIGA)</div><div class="cert-issuer">Red Team Leaders</div></div>
+        <div class="cert-card"><div class="cert-num">07</div><div class="cert-name">Certified Phishing Prevention Specialist</div><div class="cert-issuer">Kack &amp; Fix Academy</div></div>
+        <div class="cert-card"><div class="cert-num">08</div><div class="cert-name">Cyber Threat Intelligence 101</div><div class="cert-issuer">arcX</div></div>
+        <div class="cert-card"><div class="cert-num">09</div><div class="cert-name">CISO Simulation &amp; Exposure Management</div><div class="cert-issuer">XM Cyber</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label">04 // Technical Arsenal</div>
+      <h2 class="section-title">Skillset</h2>
+      <div class="skills-wrap">
+        <span class="skill-pill">Security Operations Center (SOC)</span>
+        <span class="skill-pill">Threat Detection &amp; Response</span>
+        <span class="skill-pill">Incident Response</span>
+        <span class="skill-pill">Threat Hunting</span>
+        <span class="skill-pill">Cyber Threat Intelligence</span>
+        <span class="skill-pill">Digital Forensics (DFIR)</span>
+        <span class="skill-pill">SIEM Log Analysis</span>
+        <span class="skill-pill">MITRE ATT&amp;CK</span>
+        <span class="skill-pill">Exposure Management</span>
+        <span class="skill-pill">Red Team Operations</span>
+        <span class="skill-pill">Cloud Security (OCI)</span>
+        <span class="skill-pill">Identity &amp; Access Management</span>
+        <span class="skill-pill">Network Security</span>
+        <span class="skill-pill">Security Monitoring</span>
+        <span class="skill-pill">Alert Triage &amp; Analysis</span>
+        <span class="skill-pill">Vulnerability Management</span>
+        <span class="skill-pill">Phishing Analysis</span>
+        <span class="skill-pill">Risk &amp; Governance (GRC)</span>
+        <span class="skill-pill">Adversary Simulation</span>
+        <span class="skill-pill">Security Investigations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-inner">
+      <div class="section-label">05 // Academic Background</div>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-block">
+        <div>
+          <div class="edu-degree">Bachelor of Engineering</div>
+          <div class="edu-field">Computer Science &amp; Engineering</div>
+          <div class="edu-year">Aug 2017 — Apr 2021</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-name">Sevugaperumal K</div>
+    <div class="footer-sub">// Cybersecurity Professional · SOC · DFIR · Cloud Security · Madurai, TN</div>
+  </footer>
 </div>
 
-<div class="card">
-<h4>Fourth Dimension Technologies</h4>
-<p>IT Support Intern (Jun 2022 – Jul 2022)</p>
-</div>
+<script>
+  // Cursor glow
+  const glow = document.getElementById('cursorGlow');
+  let mx = -500, my = -500;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function raf() { glow.style.left = mx + 'px'; glow.style.top = my + 'px'; requestAnimationFrame(raf); })();
 
-<div class="card">
-<h4>Conneqt Business Solutions Limited</h4>
-<p>Customer Support Associate (Sep 2021 – May 2022)</p>
-</div>
+  // Hamburger
+  const hbg = document.getElementById('hamburger');
+  const mob = document.getElementById('mobileMenu');
+  hbg.addEventListener('click', () => { hbg.classList.toggle('open'); mob.classList.toggle('open'); });
+  document.querySelectorAll('.m-link').forEach(a => a.addEventListener('click', () => { hbg.classList.remove('open'); mob.classList.remove('open'); }));
 
-</section>
+  // Nav shrink
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 80 ? '12px 60px' : '18px 60px';
+  });
 
-<section id="skills">
-<h3>Skillset</h3>
-<div class="skills">
-<span>SOC Operations</span>
-<span>Threat Detection & Response</span>
-<span>Incident Response</span>
-<span>Threat Hunting</span>
-<span>Cyber Threat Intelligence</span>
-<span>Digital Forensics</span>
-<span>SIEM Log Analysis</span>
-<span>MITRE ATT&CK</span>
-<span>Exposure Management</span>
-<span>Red Team Operations</span>
-<span>Cloud Security (OCI)</span>
-<span>IAM</span>
-<span>Network Security</span>
-<span>Security Monitoring</span>
-<span>Alert Triage</span>
-<span>Vulnerability Management</span>
-<span>Phishing Analysis</span>
-<span>GRC</span>
-<span>Adversary Simulation</span>
-</div>
-</section>
+  // Typing
+  const roles = ['Cybersecurity Specialist', 'SOC Analyst', 'DFIR Investigator', 'Threat Hunter', 'Cloud Security Practitioner', 'Incident Responder'];
+  let ri = 0, ci = 0, del = false;
+  const typedEl = document.getElementById('typed');
+  function typeLoop() {
+    const word = roles[ri];
+    if (!del) {
+      typedEl.textContent = word.slice(0, ++ci);
+      if (ci === word.length) { del = true; setTimeout(typeLoop, 1800); return; }
+    } else {
+      typedEl.textContent = word.slice(0, --ci);
+      if (ci === 0) { del = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(typeLoop, del ? 38 : 75);
+  }
+  setTimeout(typeLoop, 1300);
 
-<section id="certifications">
-<h3>Certifications</h3>
-<div class="card">
-<ul>
-<li>Offensive Security Defence Analyst – OffSec</li>
-<li>OCI Architect Associate – Oracle</li>
-<li>Seceon Certified Professional</li>
-<li>CRTOM – Red Team Leaders</li>
-<li>CCEP – Red Team Leaders</li>
-<li>CTIGA – Red Team Leaders</li>
-<li>Certified Phishing Prevention Specialist</li>
-<li>Cyber Threat Intelligence 101 – arcX</li>
-<li>CISO Simulation & Exposure Management – XM Cyber</li>
-</ul>
-</div>
-</section>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.d || 0);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+      }
+    });
+  }, { threshold: 0.1 });
 
-<section id="education">
-<h3>Education</h3>
-<div class="card">
-<p>B.E – Computer Science and Engineering</p>
-<p>Aug 2017 – Apr 2021</p>
-</div>
-</section>
-
-<section id="contact">
-<h3>Contact</h3>
-<div class="card">
-<p>📧 sevugaperumalk025@gmail.com</p>
-<p>📱 +91 8220438669</p>
-<p>🏠 Madurai, Tamil Nadu, India</p>
-</div>
-</section>
-
-<footer>
-<p>© 2026 Sevugaperumal K | Cybersecurity Portfolio</p>
-</footer>
-
+  document.querySelectorAll('.tl-item').forEach((el, i) => { el.dataset.d = i * 120; io.observe(el); });
+  document.querySelectorAll('.cert-card').forEach((el, i) => { el.dataset.d = i * 65; io.observe(el); });
+</script>
 </body>
 </html>
